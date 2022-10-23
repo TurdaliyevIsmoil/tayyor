@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="partners container flex">
+    <div class="swiper" id="partners">
+        <div class="swiper-wrapper"><a href="#" class="swiper-slide">
+            <img src="{% static '/assets/img/partner-1.png' %}" alt=""/></a>
+            <a href="#" class="swiper-slide"><img src="{% static '/assets/img/partner-2.png' %}" alt=""/></a>
+            <a href="#" class="swiper-slide"><img src="{% static '/assets/img/partner-3.png' %}" alt=""/></a>
+            <a href="#" class="swiper-slide"><img src="{% static '/assets/img/partner-4.png' %}" alt=""/></a>
+            <a href="#" class="swiper-slide"><img src="{% static '/assets/img/partner-5.png' %}" alt=""/></a>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div></section><section class="whoWeAre container"><h1 class="title">Who We Are</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, venenatis non sit neque. Dignissim etiam arcu quis sapien posuere ac facilisis turpis. Nulla orci amet, aenean donec. Neque turpis vehicula arcu interdum consequat, eu et. Morbi nullam mi hac aliquam. Dui, volutpat volutpat donec ut lectus tortor gravida amet id. Mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa, venenatis non sit neque. Dignissim etiam arcu quis sapien posuere ac facilisis turpis. Nulla orci amet , aenean donec. Neque turpis vehicula arcu interdum consequat, eu et. Morbi nullam mi hac aliquam. Dui, volutpat volutpat donec ut lectus tortor gravida amet id. Mauris.</p>
+</section>
+<section class="pictures">
+    <div class="container"><p>See some pictures of our users who found their dream job.</p>
+        <main><img src="{% static '/assets/img/picture.png' %}" alt="">
+            <img src="{% static '/assets/img/picture2.png' %}" alt="">
+            <img src="{% static '/assets/img/picture3.png' %}" alt="">
+            <img src="{% static '/assets/img/picture4.png' %}" alt="">
+            <img src="{% static '/assets/img/picture5.png' %}" alt="">
+            <img src="{% static '/assets/img/picture6.png' %}" alt="">
+        </main>
+    </div>
+</section>
+<section class="benefits container">
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b1.png' %}" alt="">
+        </div>
+        <div class="content"><h4>Browse Hundrens Of Jobs</h4>
+            <p>A team of experts passionate about product management.</p>
+        </div>
+    </article>
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b2.png' %}" alt="">
+        </div>
+        <div class="content">
+            <h4>Flexible hours</h4>
+            <p>A team of experts passionate about product management.</p>
+        </div>
+    </article>
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b3.png' %}" alt="">
+        </div>
+        <div class="content">
+            <h4>Possibility To Work Remotly</h4>
+            <p>A team of experts passionate about product management.</p>
+        </div>
+    </article>
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b4.png' %}" alt="">
+        </div>
+        <div class="content">
+            <h4>Work and travel</h4>
+            <p>A team of experts passionate about product management</p>
+        </div>
+    </article>
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b5.png' %}" alt="">
+        </div>
+        <div class="content">
+            <h4>Yearly bonuses</h4>
+            <p>A team of experts passionate about product management</p>
+        </div>
+    </article>
+    <article class="flex">
+        <div class="icon">
+            <img src="{% static '/assets/img/b6.png' %}" alt="">
+        </div>
+        <div class="content">
+            <h4>Smart salary</h4>
+            <p>A team of experts passionate about product management</p>
+        </div>
+    </article>
+</section>
+<section class="steps">
+    <div class="container">
+        <h2 class="title">Our Working Process</h2>
+        <main>
+            <article>
+                <div class="line"></div>
+                <div class="step">1</div>
+                <h4>Register</h4>
+                <p>Enterprise definition is - a project or undertaking that</p>
+            </article>
+            <article>
+                <div class="line">
+
+                </div>
+                <div class="step">2</div>
+                <h4>Submit Resume</h4>
+                <p>Enterprise definition is - a project or undertaking that</p>
+            </article><article>
+            <div class="line"></div>
+            <div class="step">3</div>
+            <h4>Search For a Job</h4>
+            <p>Enterprise definition is - a project or undertaking that</p>
+        </article><article>
+            <div class="step">4</div>
+            <h4>Apply</h4>
+            <p>Enterprise definition is - a project or undertaking that</p>
+        </article>
+        </main>
+    </div>
+</section>
+<section class="result container">
+    <article>
+        <h1>30k+</h1>
+        <p>Active<br>Users</p>
+    </article>
+    <article>
+        <h1>20k+</h1>
+        <p>Open Job<br>Positions</p>
+    </article><article>
+    <h1>5k</h1>
+    <p>Popular<br>Companies</p>
+</article><article>
+    <h1>10k+</h1>
+    <p>Happy<br>Clients</p>
+</article></section>
+{% endblock %}
+{% block script %}
+<script>let vw = window.screen.width
+        new Swiper("#partners", {
+            slidesPerView: vw > 1023 ? 5 : 3,
+            loop: true,
+        });
+        new Swiper("#testimonials", {
+            slidesPerView: vw > 1023 ? 3 : vw > 767 ? 2 : 1,
+            loop: true,
+            spaceBetween: 24,
+            slidesPerColumn: 1,
+            navigation: {
+                nextEl: ".next",
+                prevEl: ".prev",
+            },
+        });</script>
+<script src="{% static '/js/script.js' %}">
+
+</script>
+{% endblock %}

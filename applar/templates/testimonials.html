@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="testimonials testimonial container"><h2>People We Helped To Find Their<br>Best Job</h2>
+    <main>
+        {% for i in joblar %}
+        <div class="swiper-slide"><p>“{{i.text}}”</p>
+            <div class="user"><img style='border-radius:50%' src="{{i.image.url}}" alt="Erica">
+                <div class="content"><h4>{{i.name}}</h4>
+                    <p>{{i.job}}</p></div>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+</section>
+<section class="testimonials-video">
+    <div class="container">
+        <div class="content"><h3>“Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
+            officia consequat duis enim velit mollit. Exercitation veniam consequat.”</h3><h4 class="user">Elithabeth
+            Doe</h4></div>
+        <video class="video-js vjs-big-play-centered" poster="{% static '/assets/img/video-banner.png' %}"
+               data-setup='{"controls": true, "autoplay": false, "preload": "auto","aspectRatio": "8:7"}'>
+            <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+            <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+        </video>
+    </div>
+</section>
+{% endblock %}

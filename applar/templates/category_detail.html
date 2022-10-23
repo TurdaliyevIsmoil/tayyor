@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="jobs">
+    <div class="container">
+        <div class="head flex between align-start">
+            <div class="content"><h2 class="title">{{slug}} Jobs</h2></div>
+        </div>
+        <main>
+            {% for job in jobs %}
+            <article class="flex column between align-start">
+                <div><p><i class="fa-solid fa-location-dot"></i> {{ job.company.place }}</p><a href=""><h4>{{ job.job_type }}</h4>
+                </a>
+                    <p>By <span>{{ job.company}}</span></p></div>
+                <div class="flex between"><p><i class="fa-solid fa-calendar"></i>{{job.added_date}}</p>
+                    <button class="btn secondary" onclick="openApply('someid123')">Apply Now</button>
+                </div>
+                {% include 'forma.html'%}
+            </article>
+            {% endfor %}
+        </main>
+        <a href="#" class="btn view">View All Jobs</a></div>
+</section>
+{% endblock %}

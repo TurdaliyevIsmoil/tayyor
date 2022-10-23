@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="job-description container">
+    <main>
+        <div class="tags flex start">
+            <div class="tag">Restaurants</div>
+        </div>
+
+        <div class="description"><h3 class="title">{{ jobs.name }}</h3><br>
+            <p>{{ jobs.text }}</p><br>
+            <h4>Job Responsibilities.</h4>
+            <ul>
+                {% for majbur in jobs.majburi.all %}
+                    <li for="{{majbur.majburiyat}}">{{ majbur.majburiyat }}</li>
+                {% endfor %}
+            </ul>
+            <br><h4>Required Skills</h4>
+            <ul>
+                {% for konik in jobs.konikm.all %}
+                    <li for="{{konik.konikma}}">{{ konik.konikma }}</li>
+                {% endfor %}
+            </ul>
+            <br><h4>About Company</h4>
+            <p>{{ jobs.company.text }}</p>
+        </div>
+    </main>
+    <aside>
+        
+        <div class="information">
+            <h4>Company Detail</h4><small></small>
+            <p>{{ jobs.company.name }}</p><small>Location</small>
+            <p>{{ jobs.company.place }}</p><small>Email</small>
+            <p>{{ jobs.company.email}}</p><small>Contact Number</small>
+            <p>{{ jobs.company.phone}}</p><small>Salary</small>
+            <p>{{ jobs.maosh }}</p>
+            <button class="btn secondary" onclick="openApply('apply-form')">Apply Job</button>
+            {% include 'form.html'%}
+        </div>
+        
+        <iframe width="300" height="170" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                src="https://maps.google.com/maps?q=41.342944487774425,69.33743197287866&hl=es&z=14&amp;output=embed"></iframe>
+    </aside>
+</section>
+{% endblock %}

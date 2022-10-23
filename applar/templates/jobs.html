@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+    <section class="our-jobs container" id="jobs">
+        <form action="#" class="search-console" method = POST>
+            {% csrf_token %}
+            <input placeholder="Job Tittle, Keyword, Company" name = "name">
+            <input placeholder="Job Tpye" name = "jbtype">
+            <input placeholder="Salary" name = "maosh">
+            <button class="btn primary flex">
+                <i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </form>
+        <div class="result">
+            <aside class="filer" id="filter-aside">
+                <div class="close" onclick="filterToggler()">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="inner">
+                    <form action="#" class="category">
+                        <h4>Categories</h4>
+                        <div class="form-group"><input type="radio" checked="checked" id="c-all" @click="categor('all')" name="category">
+                            <label for="c-all">All</label>
+                        </div>
+                        {% for category in categories %}
+                            <div class="form-group"><input type="radio" id="c-{{category.slug}}" @click="categor('{{ category.slug }}')" name="category">
+                                <label for="c-{{category.slug}}">
+                                    {{category.name}}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </form>
+                    <div class="stick"></div>
+                    <form action="#" class="job-types">
+                        <h4>Job Types</h4>
+                        <div class="form-group"><input type="radio" checked="checked" @click="salom('all')" id="j-all" name="job-type">
+                            <label for="j-all">
+                                <span></span>
+                                All</label>
+                        </div>
+                        <div class="form-group"><input type="radio" id="j-Internship" @click="salom('Intership')" name="job-type">
+                            <label for="j-Internship">
+                                <span></span>
+                                Internship</label>
+                        </div>
+                        <div class="form-group"><input type="radio" id="j-Part-time" @click="salom('Part-time')" name="job-type">
+                            <label for="j-Part-time">
+                                <span></span>
+                                Part-time</label>
+                        </div>
+                        <div class="form-group"><input type="radio" id="j-Urgent" @click="salom('Urgent')" name="job-type">
+                            <label for="j-Urgent">
+                                <span></span>
+                                Urgent</label>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+            <main>
+                <div class="top flex between">
+                    <p class="setting" onclick="filterToggler()">
+                        <i class="fa-solid fa-gear"></i>Filter
+                    </p>
+                    <p>Showing 10 - 15 results</p>
+                    <a href="#">Post Your Job Here</a>
+                </div>
+                
+                <div class="jobs-result" id="jobs">
+                    {% if name or maosh or jbtype %}
+                    {% for job in jobs %}
+                    
+                       
+                    
+                    <article v-for="job in jobs">
+                        
+                        <div class="title flex between">
+                            
+                            <a :href="'/'+job.category.slug+'/'+job.pk">{{job.name}}</a>
+                            <p>{{job.added_date}}</p>
+                        </div>
+                        <div class="bottom flex between">
+                            <div class="inf flex">
+                                <p class="flex">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    {{job.company.place}}</p>
+                                <div class="tags flex">
+                                    <div class="tag">{{job.job_type}}</div>
+                                    <div class="tag">{{job.jbtype }}</div>
+                                </div>
+                            </div>
+                            <div class="salary flex">
+                                <p>Estimated Salary:</p>
+                                <h4>{{ job.maosh }}
+                                    $</h4>
+                            </div>
+                        </div>
+                    </article>
+                
+                    {% endfor %}
+
+                    {% else %}
+
+                    {% for job in jobs %}
+                    
+                       
+                    
+                    <article v-for="job in jobs">
+                        
+                        <div class="title flex between">
+                            
+                            <a :href="'/'+job.category.slug+'/'+job.pk">{{job.name}}</a>
+                            <p>{{job.added_date}}</p>
+                        </div>
+                        <div class="bottom flex between">
+                            <div class="inf flex">
+                                <p class="flex">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    {{job.company.place}}</p>
+                                <div class="tags flex">
+                                    <div class="tag">{{job.job_type}}</div>
+                                    <div class="tag">{{job.jbtype }}</div>
+                                </div>
+                            </div>
+                            <div class="salary flex">
+                                <p>Estimated Salary:</p>
+                                <h4>{{ job.maosh }}
+                                    $</h4>
+                            </div>
+                        </div>
+                    </article>
+                
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                
+                <br><br>
+                   
+                  
+                   
+
+                    <div class="pagination flex">
+                        {% if jobs.has_previous %}  
+                        <a href="#">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    
+                    <a href="?page={{jobs.previous_page_namber}}"> Previous </a>
+                    {% endif %} 
+                     {{ jobs.number }} of {{ jobs.paginator.num_pages }}
+                    {% if jobs.has_next %}
+                    <a href="?page={{jobs.next_page_number }}"> Next </a>
+                    <a href="#">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                
+                
+               
+            </main>
+        </div>
+    </section>
+    
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script>
+        Vue.component('paginate', VuejsPaginate)
+        let app = new Vue({
+            el:'#jobs',
+            delimiters:['[[',']]'],
+            data(){
+                return{
+                    jobs:null,
+                    cat:'all'
+                }
+            },
+            mounted(){
+                this.categor('all');
+            },
+            methods:{
+                salom(matn){
+                    console.log(matn);
+                    fetch (`/job_category/${this.cat}/${matn}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        // this.jobs.splice(0,this.jobs.length);
+                        this.jobs=data
+                    })
+                    .catch(err => console.log(err))
+                },
+                categor(matn){
+                    console.log(matn)
+                    this.cat=matn
+                    fetch (`/job_category/${matn}/all`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        // this.jobs.splice(0,this.jobs.length);
+                        this.jobs=data
+                    })
+                    .catch(err => console.log(err))
+                }
+            }
+        })
+    </script>
+{% endblock %}
+{% block script %}
+{% endblock %}

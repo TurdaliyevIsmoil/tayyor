@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="register flex">
+    <div class="image flex"><img src="{% static '/assets/img/register.png' %}" alt=""></div>
+    <div class="content flex">
+        <form method="post" action="{% url 'home'%}">
+            {% csrf_token %}
+            <h1 class="title">Register</h1>
+            <p>No credit card required</p>
+            <div class="form-group" style="color: #380206;" id="result"></div>
+            <div class="form-group"><label for="name">Name *</label>
+                <input id="name" onkeyup="register()" name="username" class="form-input" required placeholder="Ex: John Doe">
+            </div>
+            
+            <div class="form-group"><label for="name">Email *</label>
+                <input type="email" id="name" name="email" class="form-input" required placeholder="Ex: john@email.com">
+            </div>
+            <div class="form-group"><label for="name">Confirm Password *</label>
+                <input id="pass1" type="password" name="password" class="form-input" required placeholder="i.e. IAmthepreciouspass123">
+            </div>
+            <div class="form-group"><input type="checkbox" required id="privacy"> <label for="privacy">I agree to the <a
+                    href="#">Terms & Conditions</a></label></div>
+            <button class="btn secondary"  id="submitBtn" onclick="action()">Submit</button>
+            <p>Already have an account? <a href="#">Sign in</a></p></form>
+    </div>
+</section>
+<script type="text/javascript" src="http://127.0.0.1:8000/static/admin/js/vendor/jquery/jquery.js"></script>
+<script>
+    function register(){
+        let name=document.getElementById('name').value;
+        console.log(name)
+        fetch("/api/register/",{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'X-CSRFToken':'{{ csrf_token }}',
+            },
+            credentials:"same-origin",
+            body:JSON.stringify({data:name})
+        })
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            console.log(data)
+            if (data.response===true){
+                $('#result').html('This user already registered');
+                $('#name').addClass('alert alert-danger');
+                $('#submitBtn').removeClass('btn secondary');
+                $('#submitBtn').attr('disabled','disabled');
+            }else{
+                $('#result').html('').addClass('text-danger');
+                $('#name').removeClass('alert alert-danger');
+                $('#submitBtn').removeAttr('disabled');
+                $('#submitBtn').addClass('btn secondary');
+            }
+        })
+        .catch(function(error){
+            console.log("Error:",error);
+        });
+    };
+    function action(){
+        fetch("/api/register/",{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'X-CSRFToken':'{{ csrf_token }}',
+            },
+            credentials:"same-origin",
+            body:JSON.stringify({data:name})
+        })
+        .then(function(response){
+            return response.json()
+        })
+        .then(function(data){
+            console.log(data)
+        })
+        .catch(function(error){
+            console.log("Error:",error);
+        });
+    }
+</script>
+{% endblock %}

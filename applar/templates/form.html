@@ -1,0 +1,15 @@
+<form class="modal" action="" id="apply-form">
+    <div class="inner">
+        <div class="content"><h4>Cover Letter</h4><input type="hidden" name="job-id" value="12345"> <input
+                type="hidden" name="user-id" value="12345"> <input required placeholder="Fullname"> <input
+                type="email" required placeholder="Mail"> <input required placeholder="+998 XX XXX XX XX">
+            <textarea name="coverLetter" required placeholder="Write here..." rows="7"></textarea> <input
+                    class="file" type="file" name="" id="userResume1234">
+            <div class="flex">
+                <button class="btn" onclick="closeApply('apply-form')" type="button">Cancel</button>
+                <button class="btn secondary">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="backdrop" onclick="closeApply('apply-form')"></div>
+</form>

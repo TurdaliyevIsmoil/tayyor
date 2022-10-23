@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mycontent %}
+<section class="partners container flex">
+    <div class="swiper" id="partners">
+        <div class="swiper-wrapper"><a href="#" class="swiper-slide"><img src="{% static '/assets/img/partner-1.png' %}"
+                                                                          alt=""/></a><a href="#"
+                                                                                         class="swiper-slide"><img
+                src="{% static '/assets/img/partner-2.png' %}" alt=""/></a><a href="#" class="swiper-slide"><img
+                src="{% static '/assets/img/partner-3.png' %}" alt=""/></a><a href="#" class="swiper-slide"><img
+                src="{% static '/assets/img/partner-4.png' %}" alt=""/></a><a href="#" class="swiper-slide"><img
+                src="{% static '/assets/img/partner-5.png' %}" alt=""/></a></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<section class="explore-category container">
+    <div class="head flex between"><h2 class="title">Explore Jobs by<br/>Category</h2>
+        <p>Get the most exciting jobs from the best cities of Europe and UAE and grow your career fast with others.</p>
+    </div>
+    <main>
+        {% for category in categories %}
+        <a href="{% url 'category_detail' category.slug %}" class="flex start">
+            <div class="{{ category.code }}"></div>
+            <div class="content"><h4>{{category.name}}</h4>
+                <p>{{ category.jobs.all.count }} Jobs</p></div>
+        </a>
+        {% endfor %}
+    </main>
+</section>
+<section class="jobs">
+    <div class="container">
+        <div class="head flex between align-start">
+            <div class="content"><h2 class="title">Our Featured Jobs</h2>
+                <p>Check our featured jobs from popular companies. Start applying now.</p></div>
+        </div>
+        <main>
+            {% for job in jobs %}
+            <article class="flex column between align-start">
+                <div><p><i class="fa-solid fa-location-dot"></i> {{ job.company.place }}</p><a href=""><h4>{{ job.job_type }}</h4>
+                </a>
+                    <p>By <span>{{ job.company}}</span></p></div>
+                <div class="flex between"><p><i class="fa-solid fa-calendar"></i>{{job.added_date}}</p>
+                    <button class="btn secondary" onclick="openApply('someid123')">Apply Now</button>
+                </div>
+                {% include 'forma.html'%}
+            </article>
+            {% endfor %}
+        </main>
+        <a href="#" class="btn view">View All Jobs</a></div>
+</section>
+<section class="jobs transparent">
+    <div class="container">
+        <div class="head flex between align-start">
+            <div class="content"><h2 class="title">Our Urgent Jobs</h2>
+                <p>Check our featured jobs from popular companies. Start applying now.</p></div>
+            <a href="#" class="btn">View All Jobs</a></div>
+        <main>
+             {% for job1 in jobs1 %}
+            <article class="flex column between align-start">
+                <div><p><i class="fa-solid fa-location-dot"></i> {{ job1.company.place }}</p><a href=""><h4>{{ job1.job_type }}</h4>
+                </a>
+                    <p>By <span>{{ job1.company}}</span></p></div>
+                <div class="flex between"><p><i class="fa-solid fa-calendar"></i>{{job1.added_date}}</p>
+                    <button class="btn secondary" onclick="openApply('{{job1.id}}')">Contact Now</button>
+                </div>
+                {% comment %} {% include 'forma.html'%} {% endcomment %}
+                <form action="." id="{{job1.id}}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="inner">
+                        <div class="content"><h4>Cover Letter</h4><input type="hidden" name="job-id" value="{{job1.id}}">
+                            <input type="hidden" name="user-id" value="{{job1.id}}"> <input name="fullname" required placeholder="Fullname">
+                            <input type="email" name="email" required placeholder="Mail">
+                            <input required name="phone" placeholder="+998 XX XXX XX XX">
+                            <textarea name="text" required placeholder="Write here..." rows="7"></textarea>
+                            <input class="file" type="file" name="image" id="userResume1234">
+                            <div class="flex">
+                                <button class="btn" onclick="closeApply('{{job1.id}}')" type="button">Cancel</button>
+                                <button class="btn secondary" onclick="closeApply('{{job1.id }}')">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="backdrop" onclick="closeApply('someid123')"></div>
+                </form>
+            </article>
+           {% endfor %}
+        </main>
+    </div>
+</section>
+<section class="steps">
+    <div class="container"><h2 class="title">Our Working Process</h2>
+        <main>
+            <article>
+                <div class="line"></div>
+                <div class="step">1</div>
+                <h4>Register</h4>
+                <p>Enterprise definition is - a project or undertaking that</p></article>
+            <article>
+                <div class="line"></div>
+                <div class="step">2</div>
+                <h4>Submit Resume</h4>
+                <p>Enterprise definition is - a project or undertaking that</p></article>
+            <article>
+                <div class="line"></div>
+                <div class="step">3</div>
+                <h4>Search For a Job</h4>
+                <p>Enterprise definition is - a project or undertaking that</p></article>
+            <article>
+                <div class="step">4</div>
+                <h4>Apply</h4>
+                <p>Enterprise definition is - a project or undertaking that</p></article>
+        </main>
+    </div>
+</section>
+<section class="testimonials container">
+    
+    <div class="swiper" id="testimonials">
+        <div class="head flex between"><h2 class="title">What They Says<br>About Our Services</h2>
+            
+            <div class="buttons flex">
+              
+                <div class="prev flex"><i class="fa-solid fa-angle-left"></i></div>
+
+                <div class="next flex"><i class="fa-solid fa-angle-right"></i></div>
+            </div>
+        </div>
+        <div class="swiper-wrapper">
+            {% for blog in blogs %}
+            <div class="swiper-slide">
+                <p>{{ blog.text }}</p>
+                <div class="user"><img style="border-radius:50%"  src="{{ blog.image.url }}" alt="Erica">
+                    <div class="content"><h4>{{ blog.name }}</h4>
+                        <p>{{ blog.job }}</p>
+                    </div>
+                </div>
+           
+                </div>
+                {% endfor %}
+            </div>
+           
+             </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+
+
+{% endblock %}

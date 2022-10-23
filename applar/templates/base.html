@@ -1,0 +1,139 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="rgb(8, 214, 101)"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>PartTimeJob</title>
+    <link href="{% static '/style/style.css' %}" rel="stylesheet">
+    <style type="text/css">
+        .alert{--bs-alert-bg:transparent;--bs-alert-padding-x:1rem;--bs-alert-padding-y:1rem;--bs-alert-margin-bottom:1rem;--bs-alert-color:inherit;--bs-alert-border-color:transparent;--bs-alert-border:1px solid var(--bs-alert-border-color);--bs-alert-border-radius:0.375rem;position:relative;padding:var(--bs-alert-padding-y) var(--bs-alert-padding-x);margin-bottom:var(--bs-alert-margin-bottom);color:var(--bs-alert-color);background-color:var(--bs-alert-bg);border:var(--bs-alert-border);border-radius:var(--bs-alert-border-radius,0)}
+        .alert-danger{--bs-alert-color:#842029;--bs-alert-bg:#f8d7da;--bs-alert-border-color:#f5c2c7}
+    </style>
+    <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>{{post_soni}}</h1>
+        <div class="container">
+            <nav>
+                <div><a href="#" class="logo">
+                    <img src="{% static '/assets/img/logo.svg' %}" alt="PartTimeJob"/>
+                </a>
+                    <menu id="sidebar">
+                        <li><a href="{% url 'home' %}" class="{{index}}">home</a></li>
+                        <li><a href="{% url 'about' %}" class="{{about1}}">about us</a></li>
+                        <li><a href="{% url 'jobs' %}" class="{{our_job}}">our jobs</a></li>
+                        <li><a href="{% url 'testimonials' %}" class="{{test}}">testimonials</a></li>
+                        <li><a href="{% url 'contact' %}" class="{{contact}}">contact us</a></li>
+                        <li><a href="{% url 'signin' %}" class="{{active}}">Sign in</a></li>
+                        <li><a href="{% url 'register' %}" class="{{active}}">Register</a></li>
+                    </menu>
+                </div>
+                <img onclick="sidebarToggler()"
+                     src="https://img.icons8.com/fluency-systems-regular/96/000000/menu--v1.png"/>
+                {% if user.is_authenticated %}  
+                <div class="register"><a href="" onclick="bosdi()" class="btn primary">Log out</a></div>
+                {% else %}
+                    <div class="register"><a href="{% url 'signin' %}">Sign in</a> <a href="{% url 'register' %}" class="btn primary">Register</a>
+                    </div>
+                {% endif %}
+            </nav>
+            <main>
+                <article><h1 class="title main">Find Exciting<br/>Jobs Today.</h1>
+                    <p class="main">Get the most exciting part time jobs from the best cities of Europe and UAE.</p>
+                    <form>
+                        <div class="group"><label for="location">Location</label> <input id="location"
+                                                                                         placeholder="Enter preferred location"/>
+                        </div>
+                        <div class="group"><label for="type">Type</label> <input id="type"
+                                                                                 placeholder="What kind of role do you want?"/>
+                        </div>
+                        <button class="btn primary">Explore Now</button>
+                    </form>
+                </article>
+                <article><img src="{% static '/assets/img/header-main.png' %}" alt=""/></article>
+            </main>
+        </div>
+    </header>
+    
+    {% block mycontent %}
+    {% endblock %}
+    <footer>
+        <div class="container"><h1 class="title">Subscribe to get instant job alerts</h1>
+            <p>Don’t wanna miss something? Subscribe right now and get special<br>promtion and monthly newsletter</p>
+            <form class="flex between"><input type="email" required placeholder="Enter your email address">
+                <button class="btn primary">Explore Now</button>
+            </form>
+            <nav><a href="/"><img src="{% static '/assets/img/logo.svg' %}" alt=""></a>
+                <menu class="flex">
+                    <li><a href="{% url 'home'%}">home</a></li>
+                    <li><a href="{% url 'about' %}">about us</a></li>
+                    <li><a href="{% url 'jobs' %}">our jobs</a></li>
+                    <li><a href="{% url 'testimonials' %}">testimonials</a></li>
+                    <li><a href="{% url 'contact' %}">contact us</a></li>
+                </menu>
+                <div class="social-networks flex"><a href="#"><i class="fa-brands fa-facebook-f"></i></a> <a href="#"><i
+                        class="fa-brands fa-twitter"></i></a> <a href="#"><i class="fa-brands fa-instagram"></i></a></div>
+            </nav>
+        </div>
+    </footer>
+    {% block script %}
+    {% endblock %}
+
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+    </script>
+    {% endif %}
+    <script>
+        function bosdi(){
+            fetch('logout/').then(res => res.json()).then(data => {
+                console.log(data)
+            }).catch(err => console.log(err))
+        }
+    </script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
+            integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>let vw = window.screen.width
+        new Swiper("#partners", {
+          slidesPerView: vw > 1023 ? 5 : 3,
+          loop: true,
+        });
+        new Swiper("#testimonials", {
+          slidesPerView: vw > 1023 ? 3 : vw > 767 ? 2 : 1,
+          loop: true,
+          spaceBetween: 24,
+          slidesPerColumn: 1,
+          navigation: {
+            nextEl: ".next",
+            prevEl: ".prev",
+          },
+        });
+        try{let vw = window.screen.width
+            new Swiper("#partners", {
+              slidesPerView: vw > 1023 ? 5 : 3,
+              loop: true,
+            });
+            new Swiper("#testimonials", {
+              slidesPerView: vw > 1023 ? 3 : vw > 767 ? 2 : 1,
+              loop: true,
+              spaceBetween: 24,
+              slidesPerColumn: 1,
+              navigation: {
+                nextEl: ".next",
+                prevEl: ".prev",
+              },
+            });}catch(e){} 
+            <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
+    </script>
+    <script src="{% static '/js/script.js' %}"></script>
+    </body>
+    </html>
